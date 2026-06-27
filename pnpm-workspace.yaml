@@ -1,0 +1,8 @@
+# pnpm settings (v10+ reads overrides here, not from package.json).
+# Pin two transitive deps below the CI minimumReleaseAge (24h) cutoff:
+#   js-yaml@4.3.0 (astro core) and prettier@3.8.5 (@astrojs/check) were
+#   published <24h before the CI run and failed the supply-chain check.
+#   Pinned to versions >24h old; remove once the newer versions age out.
+overrides:
+  js-yaml: 4.2.0
+  prettier: 3.8.4
