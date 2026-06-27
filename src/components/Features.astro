@@ -1,22 +1,36 @@
 ---
-// 주요 기능 2x2 카드. 콘텐츠는 상단 배열로 분리해 수정 용이.
+// 주요 기능 (02). 라인 아이콘 카드. /DESIGN.md 참조.
+const icon = {
+  camera: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7H7l1.2-1.8A1 1 0 0 1 9 4.8h6a1 1 0 0 1 .8.4L17 7h2.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="13" r="3.2"/></svg>`,
+  broadcast: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="m8.1 10.9 7.8-3.6M8.1 13.1l7.8 3.6"/></svg>`,
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H6a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-3"/><rect x="9" y="3.5" width="6" height="3" rx="1"/><path d="m9 13 2 2 4-4"/></svg>`,
+  clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.6 1.6"/></svg>`,
+};
 const features = [
-  { icon: "📷", title: "사진 기반 사용보고", desc: "바코드를 자동 판별해 품목을 채웁니다. 수기 입력을 줄이고 오류를 막습니다." },
-  { icon: "📡", title: "멀티벤더 동시 전파", desc: "한 번의 제출로 여러 벤더에게 동시에. 품목별로 담당 벤더가 자동 배정됩니다." },
-  { icon: "✅", title: "확인·반려 워크플로우", desc: "벤더는 받은 보고를 확인하거나 사유와 함께 반려합니다. 명확한 피드백 창구." },
-  { icon: "🔒", title: "정보 비노출 · 비동기", desc: "간호사 본인 정보는 노출되지 않습니다. 서로의 시간에 맞춰 비동기로 처리됩니다." },
+  { svg: icon.camera, title: "사진 기반 사용보고", desc: "바코드를 자동 판별해 품목을 채웁니다. 수기 입력을 줄이고 오류를 막습니다." },
+  { svg: icon.broadcast, title: "여러 공급사 동시 전파", desc: "한 번의 제출로 여러 공급사에게 동시에. 품목별로 담당 공급사가 자동 배정됩니다." },
+  { svg: icon.check, title: "확인·반려 워크플로우", desc: "공급사는 받은 보고를 확인하거나 사유와 함께 반려합니다. 명확한 피드백 창구." },
+  { svg: icon.clock, title: "비동기 처리", desc: "실시간 대기 없이, 보내는 쪽과 받는 쪽이 각자의 시간에 맞춰 처리합니다." },
 ];
 ---
-<section id="features" class="border-b border-black/5 px-6 py-16 md:px-10 md:py-20">
-  <p class="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">주요 기능</p>
-  <h2 class="mb-8 text-2xl font-bold tracking-[-0.02em] text-ink md:text-3xl">현장에 필요한 것만, 정확하게.</h2>
-  <div class="grid gap-4 md:grid-cols-2">
-    {features.map((f) => (
-      <div class="rounded-[11px] border border-black/8 bg-white p-6">
-        <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-accent-soft text-lg">{f.icon}</div>
-        <h3 class="mb-2 text-[15px] font-semibold text-ink">{f.title}</h3>
-        <p class="text-sm leading-relaxed text-muted">{f.desc}</p>
-      </div>
-    ))}
+<section id="features" class="border-b border-hairline">
+  <div class="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-24">
+    <p class="mb-5 flex items-center gap-3 text-xs font-medium tracking-[0.14em] text-ink-subtle">
+      <span class="text-primary">02</span>
+      <span class="h-px w-8 bg-hairline-strong"></span>
+      주요 기능
+    </p>
+    <h2 class="mb-12 max-w-2xl text-3xl font-semibold tracking-[-0.03em] text-ink md:text-[2.6rem]">
+      현장에 필요한 것만, 정확하게.
+    </h2>
+    <div class="grid gap-5 md:grid-cols-2">
+      {features.map((f) => (
+        <div class="rounded-xl border border-hairline bg-canvas p-6 transition-all hover:border-primary hover:shadow-[0_1px_2px_rgba(13,14,18,0.05)]">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-primary-soft text-primary [&_svg]:h-5 [&_svg]:w-5" set:html={f.svg} />
+          <h3 class="mb-2 text-xl font-semibold tracking-[-0.015em] text-ink">{f.title}</h3>
+          <p class="text-sm leading-relaxed text-ink-subtle">{f.desc}</p>
+        </div>
+      ))}
+    </div>
   </div>
 </section>

@@ -1,21 +1,46 @@
 ---
-// 이용대상 2열: 간호사(Submitter) / 벤더(Vendor).
+// 이용대상 (03): 간호사 / 공급사. /DESIGN.md 참조.
 const audiences = [
-  { icon: "🩺", role: "간호사 (Submitter)", bg: "bg-[#f6f7fe]", points: ["사진 한 장으로 사용보고 작성", "여러 벤더에게 한 번에 전파", "본인 정보 노출 없이 보고"] },
-  { icon: "🏢", role: "벤더 (Vendor)", bg: "bg-zinc-50", points: ["전파된 보고를 한 곳에서 확인", "자기 담당 품목만 선별 수신", "확인·반려로 빠른 응답"] },
+  {
+    tag: "ROLE / SUBMITTER",
+    role: "간호사",
+    blurb: "현장에서 빠르게, 부담 없이.",
+    points: ["사진 한 장으로 사용보고 작성", "바코드로 품목 자동 입력", "여러 공급사에 한 번에 전파"],
+  },
+  {
+    tag: "ROLE / VENDOR",
+    role: "공급사",
+    blurb: "필요한 것만, 한 곳에서.",
+    points: ["전파된 보고를 한 곳에서 확인", "자기 담당 품목만 선별 수신", "확인·반려로 빠른 응답"],
+  },
 ];
 ---
-<section id="audience" class="border-b border-black/5 px-6 py-16 md:px-10 md:py-20">
-  <p class="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">이용대상</p>
-  <h2 class="mb-8 text-2xl font-bold tracking-[-0.02em] text-ink md:text-3xl">간호사와 벤더, 양쪽 모두를 위한 도구.</h2>
-  <div class="grid gap-4 md:grid-cols-2">
-    {audiences.map((a) => (
-      <div class={`rounded-[11px] border border-black/8 p-6 ${a.bg}`}>
-        <h3 class="mb-3 text-base font-bold text-ink">{a.icon} {a.role}</h3>
-        <ul class="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-body">
-          {a.points.map((p) => <li>{p}</li>)}
-        </ul>
-      </div>
-    ))}
+<section id="audience" class="border-b border-hairline">
+  <div class="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-24">
+    <p class="mb-5 flex items-center gap-3 text-xs font-medium tracking-[0.14em] text-ink-subtle">
+      <span class="text-primary">03</span>
+      <span class="h-px w-8 bg-hairline-strong"></span>
+      이용대상
+    </p>
+    <h2 class="mb-12 max-w-2xl text-3xl font-semibold tracking-[-0.03em] text-ink md:text-[2.6rem]">
+      간호사와 공급사, 양쪽 모두를 위한 도구.
+    </h2>
+    <div class="grid gap-5 md:grid-cols-2">
+      {audiences.map((a) => (
+        <div class="rounded-xl border border-hairline bg-canvas p-8">
+          <p class="text-xs font-medium tracking-[0.12em] text-primary" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace">{a.tag}</p>
+          <h3 class="mt-2 text-2xl font-semibold tracking-[-0.02em] text-ink">{a.role}</h3>
+          <p class="mt-1 text-sm text-ink-subtle">{a.blurb}</p>
+          <ul class="mt-6 space-y-3">
+            {a.points.map((p) => (
+              <li class="flex items-start gap-3 text-[15px] text-ink-muted">
+                <svg class="mt-0.5 h-5 w-5 flex-none text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" opacity="0.25"/><path d="m8.5 12 2.3 2.3L16 9"/></svg>
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   </div>
 </section>

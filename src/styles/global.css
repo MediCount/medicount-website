@@ -1,21 +1,76 @@
 @import "tailwindcss";
 
+/* MediCount marketing — see /DESIGN.md (single source of truth). */
 @theme {
-  --color-accent: #4f46e5;
-  --color-accent-soft: #eef0fe;
-  --color-ink: #15151b;
-  --color-body: #52525b;
-  --color-muted: #71717a;
-  --color-muted-soft: #a1a1aa;
+  --color-primary: #5e6ad2;
+  --color-primary-hover: #4c57c0;
+  --color-primary-pressed: #404aa8;
+  --color-primary-soft: #eceefb;
+
+  --color-ink: #0d0e12;
+  --color-ink-muted: #3f434d;
+  --color-ink-subtle: #6b7079;
+  --color-ink-tertiary: #9aa0aa;
+
+  --color-canvas: #ffffff;
+  --color-surface-1: #f7f8fa;
+  --color-surface-2: #eef0f4;
+  --color-surface-3: #e7eaef;
+  --color-hairline: #e6e8ec;
+  --color-hairline-strong: #d3d6dd;
+
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", system-ui, sans-serif;
 }
 
 :root {
   color-scheme: light;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo",
-    "Noto Sans KR", sans-serif;
-  color: var(--color-body);
+  font-family: var(--font-sans);
+  color: var(--color-ink-muted);
+  background: var(--color-canvas);
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "calt" 1;
+}
+
+/* Subtle entrance motion (no decorative gradients/shadows) */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal {
+  opacity: 0;
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    animation: none;
+    opacity: 1;
+  }
+  .fan path {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
 }

@@ -1,16 +1,21 @@
 ---
-// 회사 정보 + 사업자 정보 + 법적 페이지 링크.
+// Footer — 회사/사업자 정보 + 법적 링크. /DESIGN.md 참조.
 ---
-<footer class="bg-zinc-50 px-6 py-7 text-sm md:px-10">
-  <div class="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-    <div class="text-muted">© 2026 MediCount</div>
-    <div class="flex gap-5">
-      <a href="/terms" class="font-medium text-body hover:text-ink">이용약관</a>
-      <a href="/privacy" class="font-medium text-body hover:text-ink">개인정보처리방침</a>
+<footer class="border-t border-hairline bg-surface-1">
+  <div class="mx-auto max-w-6xl px-6 py-12 md:px-10">
+    <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+      <a href="/" class="text-base font-semibold tracking-[-0.02em] text-ink">Medi<span class="text-primary">Count</span></a>
+      <div class="flex gap-6 text-sm">
+        <a href="/terms" class="text-ink-subtle transition-colors hover:text-ink">이용약관</a>
+        <a href="/privacy" class="text-ink-subtle transition-colors hover:text-ink">개인정보처리방침</a>
+      </div>
     </div>
-  </div>
-  <div class="mt-4 text-xs leading-relaxed text-muted">
-    메디카운트 · 대표 김민철 · 사업자등록번호 749-25-02241<br />
-    경기도 성남시 분당구 벌말로30번길 12, 912동 404호 · <a href="mailto:support@medicountapp.com" class="hover:text-ink">support@medicountapp.com</a>
+
+    <div class="mt-8 border-t border-hairline pt-6 text-xs leading-relaxed text-ink-subtle">
+      메디카운트 · 대표 김민철 · 사업자등록번호 749-25-02241<br />
+      경기도 성남시 분당구 벌말로30번길 12, 912동 404호 ·
+      <a href="mailto:support@medicountapp.com" class="transition-colors hover:text-ink">support@medicountapp.com</a>
+    </div>
+    <p class="mt-4 text-xs text-ink-tertiary">© 2026 MediCount. All rights reserved.</p>
   </div>
 </footer>

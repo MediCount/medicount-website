@@ -1,13 +1,34 @@
 ---
-// 서비스가 푸는 문제. 섹션 라벨(monospace) + H2 + 리드 문단.
+// 서비스 소개 (01). /DESIGN.md 참조.
 ---
-<section id="service" class="border-b border-black/5 px-6 py-16 md:px-10 md:py-20">
-  <p class="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">서비스 소개</p>
-  <h2 class="mb-3 text-2xl font-bold tracking-[-0.02em] text-ink md:text-3xl">
-    벤더마다 따로 연락하던 사용보고를, 한 번의 제출로.
-  </h2>
-  <p class="max-w-2xl text-base leading-relaxed text-body md:text-lg">
-    기존에는 사용한 의료기기를 벤더사마다 개별 연락해 보고해야 했습니다. MediCount는 사진 기반 보고 하나를
-    품목별 담당 벤더에게 동시에 전파합니다. 간호사는 한 번만 올리고, 벤더는 자기 품목만 받아봅니다.
-  </p>
+<section id="service" class="border-b border-hairline">
+  <div class="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-24">
+    <p class="mb-5 flex items-center gap-3 text-xs font-medium tracking-[0.14em] text-ink-subtle">
+      <span class="text-primary">01</span>
+      <span class="h-px w-8 bg-hairline-strong"></span>
+      서비스 소개
+    </p>
+    <h2 class="max-w-3xl text-3xl font-semibold leading-[1.15] tracking-[-0.03em] text-ink md:text-[2.6rem]">
+      공급사마다 따로 연락하던 사용보고를,<br class="hidden md:block" /> 한 번의 제출로.
+    </h2>
+    <p class="mt-6 max-w-2xl text-lg leading-relaxed tracking-[-0.01em] text-ink-muted">
+      기존에는 사용한 의료기기를 공급사마다 개별 연락해 보고해야 했습니다. MediCount는 사진 기반 보고 하나를
+      품목별 담당 공급사에게 동시에 전파합니다. 간호사는 한 번만 올리고, 공급사는 자기 품목만 받아봅니다.
+    </p>
+
+    <div class="mt-12 grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-3">
+      <div class="bg-surface-1 p-6">
+        <div class="text-3xl font-semibold tracking-[-0.02em] text-ink">1<span class="text-primary">×</span></div>
+        <p class="mt-2 text-sm text-ink-subtle">간호사는 단 한 번 제출</p>
+      </div>
+      <div class="bg-surface-1 p-6">
+        <div class="text-3xl font-semibold tracking-[-0.02em] text-ink">N<span class="text-primary">→</span></div>
+        <p class="mt-2 text-sm text-ink-subtle">담당 공급사에게 동시 전파</p>
+      </div>
+      <div class="bg-surface-1 p-6">
+        <div class="text-3xl font-semibold tracking-[-0.02em] text-ink">0<span class="text-primary">·</span></div>
+        <p class="mt-2 text-sm text-ink-subtle">중복 연락·수기 입력 제거</p>
+      </div>
+    </div>
+  </div>
 </section>

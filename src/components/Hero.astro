@@ -1,25 +1,64 @@
 ---
-// 중앙 정렬 Hero. hero-bg 그라데이션 + eyebrow + H1 + 부제 + CTA 2개.
+// Hero — 2단(카피 + 전파 다이어그램 패널). /DESIGN.md 참조.
 ---
-<section
-  class="px-6 py-20 text-center md:py-28"
-  style="background: radial-gradient(120% 120% at 50% 0%, #fdfdff 0%, #f5f6fb 60%, #eef0fa 100%);"
->
-  <span class="mb-6 inline-block rounded-full bg-accent-soft px-3 py-1.5 text-xs font-semibold text-accent">
-    멀티벤더 사용보고
-  </span>
-  <h1 class="mx-auto mb-5 max-w-2xl text-4xl font-bold leading-tight tracking-[-0.02em] text-ink md:text-5xl">
-    의료기기 사용보고,<br />여러 벤더에게 한 번에.
-  </h1>
-  <p class="mx-auto mb-8 max-w-xl text-lg leading-relaxed text-body">
-    사진 한 장으로 끝나는 사용보고. 본인 정보 노출 없이, 비동기로 여러 벤더에게 동시에 전파하세요.
-  </p>
-  <div class="flex flex-wrap items-center justify-center gap-2">
-    <a href="mailto:support@medicountapp.com" class="rounded-[9px] bg-accent px-6 py-3.5 text-[15px] font-semibold text-white hover:opacity-90">
-      도입 문의하기
-    </a>
-    <a href="#service" class="rounded-[9px] px-5 py-3.5 text-[15px] font-semibold text-ink hover:bg-black/5">
-      서비스 더 보기 →
-    </a>
+<section class="border-b border-hairline">
+  <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 md:grid-cols-[1.05fr_0.95fr] md:px-10 md:py-28">
+    <!-- Copy -->
+    <div>
+      <span class="reveal inline-block rounded-full bg-primary-soft px-3 py-1 text-xs font-medium tracking-[0.06em] text-primary-pressed" style="animation-delay:0.02s">
+        여러 공급사 사용보고
+      </span>
+      <h1 class="reveal mt-6 text-[2.5rem] font-semibold leading-[1.06] tracking-[-0.035em] text-ink md:text-[4rem]" style="animation-delay:0.08s">
+        의료기기 사용보고,<br />여러 공급사에 한 번에.
+      </h1>
+      <p class="reveal mt-6 max-w-md text-lg leading-relaxed tracking-[-0.01em] text-ink-muted" style="animation-delay:0.16s">
+        사진 한 장으로 끝나는 사용보고 — 품목별 담당 공급사에게 비동기로 동시에 전파하세요.
+      </p>
+      <div class="reveal mt-9 flex flex-wrap items-center gap-3" style="animation-delay:0.24s">
+        <a href="mailto:support@medicountapp.com" class="rounded-lg bg-primary px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-primary-hover">
+          도입 문의하기
+        </a>
+        <a href="#service" class="rounded-lg border border-hairline-strong bg-canvas px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-primary">
+          서비스 더 보기
+        </a>
+      </div>
+    </div>
+
+    <!-- Fan-out diagram panel: 1 report → many suppliers -->
+    <figure class="reveal fan" style="animation-delay:0.3s" aria-label="하나의 사용보고가 여러 공급사에게 동시에 전파되는 모습">
+      <div class="rounded-2xl border border-hairline bg-surface-1 p-5">
+        <div class="mb-3 flex items-center justify-between px-1 text-[11px] tracking-[0.12em] text-ink-tertiary" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace">
+          <span>BROADCAST</span><span>1 → N</span>
+        </div>
+        <svg viewBox="0 0 560 360" class="w-full" role="img">
+          <g fill="none" stroke="#5e6ad2" stroke-width="2" stroke-linecap="round">
+            <path d="M70,180 C220,180 300,64 430,64" stroke-dasharray="540" stroke-dashoffset="540" style="animation:drawLine 0.9s ease 0.4s forwards" />
+            <path d="M70,180 C240,180 300,180 430,180" stroke-dasharray="540" stroke-dashoffset="540" style="animation:drawLine 0.9s ease 0.55s forwards" />
+            <path d="M70,180 C220,180 300,296 430,296" stroke-dasharray="540" stroke-dashoffset="540" style="animation:drawLine 0.9s ease 0.7s forwards" />
+          </g>
+          <!-- source -->
+          <circle cx="70" cy="180" r="13" fill="#0d0e12" />
+          <circle cx="70" cy="180" r="21" fill="none" stroke="#5e6ad2" stroke-width="1" opacity="0.45" />
+          <text x="70" y="222" text-anchor="middle" font-size="13" font-weight="600" fill="#0d0e12">사용보고</text>
+          <text x="70" y="240" text-anchor="middle" font-size="11" fill="#9aa0aa" style="font-family:ui-monospace,monospace">1건</text>
+          <!-- targets -->
+          <g>
+            <circle cx="430" cy="64" r="9" fill="#ffffff" stroke="#5e6ad2" stroke-width="2.5" />
+            <text x="452" y="62" font-size="13" font-weight="600" fill="#0d0e12">공급사 A</text>
+            <text x="452" y="78" font-size="10" fill="#9aa0aa" style="font-family:ui-monospace,monospace">GTIN 0884…</text>
+          </g>
+          <g>
+            <circle cx="430" cy="180" r="9" fill="#ffffff" stroke="#5e6ad2" stroke-width="2.5" />
+            <text x="452" y="178" font-size="13" font-weight="600" fill="#0d0e12">공급사 B</text>
+            <text x="452" y="194" font-size="10" fill="#9aa0aa" style="font-family:ui-monospace,monospace">GTIN 1330…</text>
+          </g>
+          <g>
+            <circle cx="430" cy="296" r="9" fill="#ffffff" stroke="#5e6ad2" stroke-width="2.5" />
+            <text x="452" y="294" font-size="13" font-weight="600" fill="#0d0e12">외부 연락처</text>
+            <text x="452" y="310" font-size="10" fill="#9aa0aa" style="font-family:ui-monospace,monospace">SMS</text>
+          </g>
+        </svg>
+      </div>
+    </figure>
   </div>
 </section>

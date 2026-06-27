@@ -1,12 +1,19 @@
 ---
-// 상단 고정 네비게이션. 앵커 이동 + 도입 문의(mailto).
+// top-nav — 라이트 sticky 바. /DESIGN.md 참조.
 ---
-<nav class="sticky top-0 z-50 flex items-center justify-between border-b border-black/5 bg-white/80 px-6 py-4 backdrop-blur md:px-10">
-  <a href="/" class="text-lg font-bold tracking-tight text-ink">Medi<span class="text-accent">Count</span></a>
-  <div class="flex items-center gap-5 text-sm font-medium text-body">
-    <a href="/#service" class="hidden hover:text-ink sm:inline">서비스</a>
-    <a href="/#features" class="hidden hover:text-ink sm:inline">기능</a>
-    <a href="/#audience" class="hidden hover:text-ink sm:inline">이용대상</a>
-    <a href="mailto:support@medicountapp.com" class="rounded-lg bg-accent px-4 py-2 text-[13px] font-semibold text-white hover:opacity-90">도입 문의</a>
+<nav class="sticky top-0 z-50 border-b border-hairline bg-canvas/80 backdrop-blur-md">
+  <div class="mx-auto flex h-[60px] max-w-6xl items-center justify-between px-6 md:px-10">
+    <a href="/" class="text-lg font-semibold tracking-[-0.02em] text-ink">Medi<span class="text-primary">Count</span></a>
+    <div class="flex items-center gap-1 text-sm text-ink-subtle sm:gap-2">
+      <a href="/#service" class="hidden rounded-md px-3 py-2 transition-colors hover:text-ink sm:inline">서비스</a>
+      <a href="/#features" class="hidden rounded-md px-3 py-2 transition-colors hover:text-ink sm:inline">기능</a>
+      <a href="/#audience" class="hidden rounded-md px-3 py-2 transition-colors hover:text-ink sm:inline">이용대상</a>
+      <a
+        href="mailto:support@medicountapp.com"
+        class="ml-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-hover"
+      >
+        도입 문의
+      </a>
+    </div>
   </div>
 </nav>
