@@ -1,6 +1,6 @@
 ---
-// 쿠키 고지 배너(비차단형) — 고지 + 옵트아웃 방식.
-// GA_MEASUREMENT_ID가 있을 때만 출력. '거부' 시 GA4 비활성화 후 다시 안 뜸.
+// 쿠키 고지 배너. GA_MEASUREMENT_ID가 있을 때만 출력.
+// '허용'을 선택한 뒤에만 GA4를 로드하고, '거부' 시 다시 표시하지 않는다.
 import { GA_MEASUREMENT_ID } from "../consts";
 ---
 {
@@ -11,7 +11,7 @@ import { GA_MEASUREMENT_ID } from "../consts";
       class="fixed inset-x-3 bottom-3 z-[90] mx-auto max-w-xl rounded-xl border border-hairline bg-canvas/95 p-4 shadow-lg backdrop-blur-md sm:inset-x-auto sm:right-4 sm:bottom-4"
     >
       <p class="text-[13px] leading-relaxed text-ink-muted">
-        이 사이트는 서비스 개선을 위해 방문 통계 분석(Google Analytics) 쿠키를 사용합니다. 자세한 내용은{" "}
+        이 사이트는 허용한 경우에만 방문 통계 분석(Google Analytics) 쿠키를 사용합니다. 자세한 내용은{" "}
         <a href="/privacy" class="text-primary underline-offset-2 hover:underline">
           개인정보처리방침
         </a>
@@ -30,13 +30,13 @@ import { GA_MEASUREMENT_ID } from "../consts";
           data-cc="accept"
           class="rounded-md bg-primary px-3 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-primary-hover"
         >
-          확인
+          허용
         </button>
       </div>
       <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
         {`
         (function () {
-          var ACK = 'mc-cc-ack', OPTOUT = 'mc-analytics-optout';
+          var ACK = 'mc-cc-ack', CONSENT = 'mc-analytics-consent', OPTOUT = 'mc-analytics-optout';
           var el = document.getElementById('mc-cookie-notice');
           if (!el) return;
           try { if (localStorage.getItem(ACK) === '1') return; } catch (e) { return; }
@@ -48,6 +48,12 @@ import { GA_MEASUREMENT_ID } from "../consts";
             if (b.getAttribute('data-cc') === 'reject') {
               try { localStorage.setItem(OPTOUT, '1'); } catch (e) {}
               window['ga-disable-' + GA_MEASUREMENT_ID] = true;
+            } else {
+              try {
+                localStorage.setItem(CONSENT, 'granted');
+                localStorage.removeItem(OPTOUT);
+              } catch (e) {}
+              if (typeof window.mcLoadAnalytics === 'function') window.mcLoadAnalytics();
             }
             el.hidden = true;
           });
