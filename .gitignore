@@ -1,6 +1,10 @@
 # brainstorm 시각 컴패니언 산출물
 .superpowers/
 
+# 내부 작업 문서 — public repo에 노출 금지 (히스토리에서도 purge함)
+docs/superpowers/
+docs/privacy-data-requirements.md
+
 # build & deps
 dist/
 node_modules/

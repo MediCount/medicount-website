@@ -1,59 +1,46 @@
 ---
 // GA4 로더. consts.ts의 GA_MEASUREMENT_ID가 있을 때만 출력.
-// 쿠키 배너에서 분석 허용을 선택한 뒤에만 GA4를 로드한다.
+// opt-out 방식: 기본 로드하며, 'mc-analytics-optout' === '1'이면 비활성화한다.
 // [data-ga-event] 요소 클릭을 GA4 이벤트로 전송해 "어디에 반응하는지" 정량 측정.
 import { GA_MEASUREMENT_ID } from "../consts";
 ---
 {
   GA_MEASUREMENT_ID && (
-    <>
-      <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
-        {`
-        (function () {
-          var CONSENT = 'mc-analytics-consent';
-          var OPTOUT = 'mc-analytics-optout';
-          var loaded = false;
+    <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+      {`
+      (function () {
+        var OPTOUT = 'mc-analytics-optout';
 
-          function storageGet(key) {
-            try { return localStorage.getItem(key); } catch (e) { return null; }
-          }
+        function optedOut() {
+          try { return localStorage.getItem(OPTOUT) === '1'; } catch (e) { return false; }
+        }
 
-          function loadAnalytics() {
-            if (loaded || storageGet(OPTOUT) === '1') {
-              window['ga-disable-' + GA_MEASUREMENT_ID] = true;
-              return;
-            }
+        if (optedOut()) {
+          window['ga-disable-' + GA_MEASUREMENT_ID] = true;
+          return;
+        }
 
-            loaded = true;
-            var s = document.createElement('script');
-            s.async = true;
-            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
-            document.head.appendChild(s);
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+        document.head.appendChild(s);
 
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){ window.dataLayer.push(arguments); }
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
-          }
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
 
-          window.mcLoadAnalytics = loadAnalytics;
-
-          if (storageGet(CONSENT) === 'granted') {
-            loadAnalytics();
-          }
-
-          document.addEventListener('click', function (e) {
-            var el = e.target.closest('[data-ga-event]');
-            if (!el || typeof window.gtag !== 'function') return;
-            window.gtag('event', el.getAttribute('data-ga-event'), {
-              location: el.getAttribute('data-ga-location') || '',
-              link_url: el.getAttribute('href') || ''
-            });
+        document.addEventListener('click', function (e) {
+          var el = e.target.closest('[data-ga-event]');
+          if (!el || typeof window.gtag !== 'function') return;
+          window.gtag('event', el.getAttribute('data-ga-event'), {
+            location: el.getAttribute('data-ga-location') || '',
+            link_url: el.getAttribute('href') || ''
           });
-        })();
-        `}
-      </script>
-    </>
+        });
+      })();
+      `}
+    </script>
   )
 }
