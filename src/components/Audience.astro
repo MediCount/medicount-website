@@ -1,0 +1,21 @@
+---
+// 이용대상 2열: 간호사(Submitter) / 벤더(Vendor).
+const audiences = [
+  { icon: "🩺", role: "간호사 (Submitter)", bg: "bg-[#f6f7fe]", points: ["사진 한 장으로 사용보고 작성", "여러 벤더에게 한 번에 전파", "본인 정보 노출 없이 보고"] },
+  { icon: "🏢", role: "벤더 (Vendor)", bg: "bg-zinc-50", points: ["전파된 보고를 한 곳에서 확인", "자기 담당 품목만 선별 수신", "확인·반려로 빠른 응답"] },
+];
+---
+<section id="audience" class="border-b border-black/5 px-6 py-16 md:px-10 md:py-20">
+  <p class="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">이용대상</p>
+  <h2 class="mb-8 text-2xl font-bold tracking-[-0.02em] text-ink md:text-3xl">간호사와 벤더, 양쪽 모두를 위한 도구.</h2>
+  <div class="grid gap-4 md:grid-cols-2">
+    {audiences.map((a) => (
+      <div class={`rounded-[11px] border border-black/8 p-6 ${a.bg}`}>
+        <div class="mb-3 text-base font-bold text-ink">{a.icon} {a.role}</div>
+        <ul class="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-body">
+          {a.points.map((p) => <li>{p}</li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
