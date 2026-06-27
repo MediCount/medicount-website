@@ -1,0 +1,59 @@
+---
+// 쿠키 고지 배너(비차단형) — 고지 + 옵트아웃 방식.
+// GA_MEASUREMENT_ID가 있을 때만 출력. '거부' 시 GA4 비활성화 후 다시 안 뜸.
+import { GA_MEASUREMENT_ID } from "../consts";
+---
+{
+  GA_MEASUREMENT_ID && (
+    <div
+      id="mc-cookie-notice"
+      hidden
+      class="fixed inset-x-3 bottom-3 z-[90] mx-auto max-w-xl rounded-xl border border-hairline bg-canvas/95 p-4 shadow-lg backdrop-blur-md sm:inset-x-auto sm:right-4 sm:bottom-4"
+    >
+      <p class="text-[13px] leading-relaxed text-ink-muted">
+        이 사이트는 서비스 개선을 위해 방문 통계 분석(Google Analytics) 쿠키를 사용합니다. 자세한 내용은{" "}
+        <a href="/privacy" class="text-primary underline-offset-2 hover:underline">
+          개인정보처리방침
+        </a>
+        을 확인하세요.
+      </p>
+      <div class="mt-3 flex justify-end gap-2">
+        <button
+          type="button"
+          data-cc="reject"
+          class="rounded-md border border-hairline-strong bg-canvas px-3 py-1.5 text-[13px] font-medium text-ink transition-colors hover:border-primary"
+        >
+          거부
+        </button>
+        <button
+          type="button"
+          data-cc="accept"
+          class="rounded-md bg-primary px-3 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-primary-hover"
+        >
+          확인
+        </button>
+      </div>
+      <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+        {`
+        (function () {
+          var ACK = 'mc-cc-ack', OPTOUT = 'mc-analytics-optout';
+          var el = document.getElementById('mc-cookie-notice');
+          if (!el) return;
+          try { if (localStorage.getItem(ACK) === '1') return; } catch (e) { return; }
+          el.hidden = false;
+          el.addEventListener('click', function (e) {
+            var b = e.target.closest('button[data-cc]');
+            if (!b) return;
+            try { localStorage.setItem(ACK, '1'); } catch (e) {}
+            if (b.getAttribute('data-cc') === 'reject') {
+              try { localStorage.setItem(OPTOUT, '1'); } catch (e) {}
+              window['ga-disable-' + GA_MEASUREMENT_ID] = true;
+            }
+            el.hidden = true;
+          });
+        })();
+        `}
+      </script>
+    </div>
+  )
+}

@@ -1,0 +1,39 @@
+---
+// 자주 묻는 질문 (04). SEO 리치결과 + GEO용. /DESIGN.md 참조.
+// 콘텐츠 단일 소스: src/data/faq.ts (FAQPage JSON-LD도 같은 데이터 사용).
+import { FAQ_ITEMS } from "../data/faq";
+---
+<section id="faq" class="border-b border-hairline">
+  <div class="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-24">
+    <p class="mb-5 flex items-center gap-3 text-xs font-medium tracking-[0.14em] text-ink-subtle">
+      <span class="text-primary">04</span>
+      <span class="h-px w-8 bg-hairline-strong"></span>
+      자주 묻는 질문
+    </p>
+    <h2 class="mb-12 max-w-2xl text-3xl font-semibold tracking-[-0.03em] text-ink md:text-[2.6rem]">
+      MediCount, 무엇이 궁금하세요?
+    </h2>
+    <div class="divide-y divide-hairline border-y border-hairline">
+      {
+        FAQ_ITEMS.map((item) => (
+          <details class="group">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-medium tracking-[-0.01em] text-ink">
+              {item.q}
+              <svg
+                class="h-5 w-5 flex-none text-ink-tertiary transition-transform group-open:rotate-45"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </summary>
+            <p class="pb-6 pr-9 text-[15px] leading-7 text-ink-muted">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

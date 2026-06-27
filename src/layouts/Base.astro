@@ -2,13 +2,54 @@
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import Analytics from "../components/Analytics.astro";
+import CookieNotice from "../components/CookieNotice.astro";
+import {
+  SITE,
+  ORG,
+  GOOGLE_SITE_VERIFICATION,
+  NAVER_SITE_VERIFICATION,
+  BING_SITE_VERIFICATION,
+} from "../consts";
 
 interface Props {
   title: string;
   description: string;
+  image?: string;
+  /** 페이지별 추가 JSON-LD (예: SoftwareApplication, FAQPage) */
+  schema?: Record<string, unknown>[];
 }
-const { title, description } = Astro.props;
+const { title, description, image, schema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = new URL(image ?? SITE.ogImage, Astro.site).href;
+
+// 사이트 전역 구조화 데이터 + 페이지별 추가분
+const jsonLd: Record<string, unknown>[] = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE.name,
+    alternateName: ORG.legalName,
+    url: SITE.url,
+    logo: new URL("/favicon.svg", SITE.url).href,
+    email: ORG.email,
+    founder: { "@type": "Person", name: ORG.founder },
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "KR",
+      addressLocality: ORG.addressRegion,
+      streetAddress: ORG.address,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE.name,
+    url: SITE.url,
+    inLanguage: "ko-KR",
+  },
+  ...schema,
+];
 ---
 <!doctype html>
 <html lang="ko">
@@ -21,15 +62,27 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/variable/pretendardvariable.min.css"
     />
+    {GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />}
+    {NAVER_SITE_VERIFICATION && <meta name="naver-site-verification" content={NAVER_SITE_VERIFICATION} />}
+    {BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:locale" content="ko_KR" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    {jsonLd.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+    ))}
+    <Analytics />
   </head>
   <body class="bg-canvas">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-white">본문 바로가기</a>
@@ -38,5 +91,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
       <slot />
     </main>
     <Footer />
+    <CookieNotice />
   </body>
 </html>

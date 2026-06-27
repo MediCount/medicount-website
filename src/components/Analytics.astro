@@ -1,0 +1,43 @@
+---
+// GA4 로더. consts.ts의 GA_MEASUREMENT_ID가 있을 때만 출력.
+// 옵트아웃(localStorage 'mc-analytics-optout') 시 발화하지 않음 — 고지+옵트아웃 방식.
+// [data-ga-event] 요소 클릭을 GA4 이벤트로 전송해 "어디에 반응하는지" 정량 측정.
+import { GA_MEASUREMENT_ID } from "../consts";
+---
+{
+  GA_MEASUREMENT_ID && (
+    <>
+      <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+        {`
+        (function () {
+          try {
+            if (localStorage.getItem('mc-analytics-optout') === '1') {
+              window['ga-disable-' + GA_MEASUREMENT_ID] = true;
+              return;
+            }
+          } catch (e) {}
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ window.dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+
+          // 핵심 CTA 클릭 추적
+          document.addEventListener('click', function (e) {
+            var el = e.target.closest('[data-ga-event]');
+            if (!el || typeof window.gtag !== 'function') return;
+            window.gtag('event', el.getAttribute('data-ga-event'), {
+              location: el.getAttribute('data-ga-location') || '',
+              link_url: el.getAttribute('href') || ''
+            });
+          });
+        })();
+        `}
+      </script>
+    </>
+  )
+}

@@ -4,12 +4,42 @@ import Hero from "../components/Hero.astro";
 import ServiceIntro from "../components/ServiceIntro.astro";
 import Features from "../components/Features.astro";
 import Audience from "../components/Audience.astro";
+import Faq from "../components/Faq.astro";
 import ContactCTA from "../components/ContactCTA.astro";
+import { SITE } from "../consts";
+import { FAQ_ITEMS } from "../data/faq";
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "MediCount",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description: SITE.description,
+    url: SITE.url,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  },
+];
 ---
-<Base title="MediCount — 여러 공급사 의료기기 사용보고" description="사진 한 장으로 끝나는 사용보고를 품목별 담당 공급사에게 비동기로 동시에 전파하는 사용보고 도구.">
+<Base
+  title="MediCount — 여러 공급사 의료기기 사용보고"
+  description="사진 한 장으로 끝나는 사용보고를 품목별 담당 공급사에게 비동기로 동시에 전파하는 사용보고 도구."
+  schema={schema}
+>
   <Hero />
   <ServiceIntro />
   <Features />
   <Audience />
+  <Faq />
   <ContactCTA />
 </Base>
