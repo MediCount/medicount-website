@@ -1,0 +1,12 @@
+title = "MediCount website gitleaks config"
+
+# Use gitleaks' built-in ruleset, then add our allowlist on top.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known safe patterns for this repo"
+paths = [
+  '''\.env\.example''',
+  '''pnpm-lock\.yaml''',
+]
