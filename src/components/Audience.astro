@@ -11,7 +11,7 @@ const audiences = [
   <div class="grid gap-4 md:grid-cols-2">
     {audiences.map((a) => (
       <div class={`rounded-[11px] border border-black/8 p-6 ${a.bg}`}>
-        <div class="mb-3 text-base font-bold text-ink">{a.icon} {a.role}</div>
+        <h3 class="mb-3 text-base font-bold text-ink">{a.icon} {a.role}</h3>
         <ul class="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-body">
           {a.points.map((p) => <li>{p}</li>)}
         </ul>
